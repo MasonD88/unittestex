@@ -8,6 +8,7 @@ import animals.petstore.pet.attributes.PetType;
 import animals.petstore.pet.attributes.Skin;
 import animals.petstore.pet.types.Cat;
 import animals.petstore.pet.types.Dog;
+import animals.petstore.pet.types.Snake;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -87,6 +88,10 @@ public class PetStore
             Dog foundDog = this.identifySoldDogFromInventory((Dog) soldPet);
             this.removePetFromInventoryByPetId(PetType.DOG, soldPet.getPetStoreId());
             return foundDog;
+        } else if (soldPet instanceof Snake) {
+            Snake foundSnake = this.identifySoldSnakeFromInventory((Snake) soldPet);
+            this.removePetFromInventoryByPetId(PetType.SNAKE, soldPet.getPetStoreId());
+            return foundSnake;
         } else {
             Cat foundCat = this.identifySoldCatFromInventory((Cat) soldPet);
             this.removePetFromInventoryByPetId(PetType.CAT, soldPet.getPetStoreId());
@@ -114,6 +119,11 @@ public class PetStore
                 .collect(Collectors.toList());
         switch(petType)
         {
+            case SNAKE:
+                this.petsForSale = this.petsForSale.stream()
+                        .filter(p -> ((p instanceof Snake)
+                                && (p.getPetStoreId() != petStoreId)))
+                        .collect(Collectors.toList());
             case CAT:
                 this.petsForSale = this.petsForSale.stream()
                         .filter(p -> ((p instanceof Cat)
@@ -172,7 +182,21 @@ public class PetStore
             throw new DuplicatePetStoreRecordException ("Duplicate Cat record store id [" + soldCat.getPetStoreId() + "]");
         }
     }
+    private Snake identifySoldSnakeFromInventory(Snake soldSnake) throws DuplicatePetStoreRecordException
+    {
+        List<Pet> snakePets = this.petsForSale.stream()
+                .filter(p -> ((p instanceof Snake)
+                        && (p.getPetStoreId() == soldSnake.getPetStoreId())))
+                .collect(Collectors.toList());
 
+        if (snakePets.size()==1)
+        {
+            return (Snake) snakePets.get(0);
+        }
+        else {
+            throw new DuplicatePetStoreRecordException ("Duplicate Cat record store id [" + soldSnake.getPetStoreId() + "]");
+        }
+    }
     public List<Pet> getPetsForSale()
     {
         return petsForSale;

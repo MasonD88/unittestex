@@ -1,6 +1,7 @@
 package tests;
 
 import animals.AnimalType;
+import animals.petstore.pet.Pet;
 import animals.petstore.pet.attributes.Breed;
 import animals.petstore.pet.attributes.Gender;
 import animals.petstore.pet.attributes.Skin;
