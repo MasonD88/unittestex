@@ -1,5 +1,6 @@
 package tests;
 
+import animals.petstore.pet.types.Dog;
 import org.junit.jupiter.api.*;
 import animals.AnimalType;
 import animals.petstore.pet.attributes.Breed;
@@ -30,7 +31,7 @@ public class SnakeTests {
 
     @Test
     @Order(2)
-    @DisplayName("Dog Gender Test Male")
+    @DisplayName("Snake Gender Test Male")
     public void genderTestMale()
     {
         actualSnake = new Snake(AnimalType.WILD, Skin.UNKNOWN,Gender.MALE, Breed.UNKNOWN);
@@ -39,10 +40,27 @@ public class SnakeTests {
 
     @Test
     @Order(2)
-    @DisplayName("Dog Breed Test Maltese")
-    public void genderDogBreed() {
-        actualSnake = new Snake(AnimalType.WILD, Skin.UNKNOWN,Gender.FEMALE, Breed.MALTESE);
-        assertEquals(Breed.MALTESE, actualSnake.getBreed(), "Expecting Breed Maltese!");
+    @DisplayName("Snake Breed Test White")
+    public void genderSnakeBreed() {
+        actualSnake = new Snake(AnimalType.WILD, Skin.UNKNOWN,Gender.FEMALE, Breed.CORN);
+        assertEquals(Breed.CORN, actualSnake.getBreed(), "Expecting Breed Corn!");
     }
 
+    @Test
+    @Order(2)
+    @DisplayName("Snake Breed Test White")
+    public void silentSnakeBreed() {
+        actualSnake = new Snake(AnimalType.DOMESTIC, Skin.UNKNOWN,Gender.FEMALE, Breed.CORN);
+        assertEquals("the snake is silent", actualSnake.speak(), "I was expecting Bark");
+
+    }
+
+    @Test
+    @Order(2)
+    @DisplayName("Snake Breed Test White")
+    public void dogGoesHissTest()
+    {
+        actualSnake = new Snake(AnimalType.UNKNOWN, Skin.UNKNOWN,Gender.UNKNOWN, Breed.UNKNOWN);
+        assertEquals("The snake goes Psss! Psss!", actualSnake.speak(), "I was expecting Bark");
+    }
 }

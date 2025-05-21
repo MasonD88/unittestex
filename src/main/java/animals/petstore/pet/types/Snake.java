@@ -21,11 +21,27 @@ public class Snake extends Pet implements PetImpl {
     }
     public Snake(AnimalType animalType, Skin skinType, Gender gender, Breed breed, BigDecimal cost, int petStoreId)
     {
-        super(PetType.CAT, cost, gender, petStoreId);
+        super(PetType.SNAKE, cost, gender, petStoreId);
         super.skinType = skinType;
         super.animalType = animalType;
         this.breed = breed;
     }
+    public String speak() {
+        String language;
+        switch (this.animalType) {
+            case DOMESTIC:
+                language = "the snake is silent";
+                break;
+            case WILD:
+                language = "The snake goes hiss! hiss!";
+                break;
+            default:
+                language = "The snake goes " + super.getPetType().speak + "! " + super.getPetType().speak + "!";
+                break;
+        }
+        return language;
+    }
+
     public Breed getBreed() {
         return this.breed;
     }
